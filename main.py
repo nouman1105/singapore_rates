@@ -11,18 +11,16 @@ app = Flask(__name__)
 CACHE = {"data": None, "last_updated": None, "error": None}
 CACHE_TTL = 60  # seconds
 
-# -----------------------
-# Scraper: CashChanger
-# -----------------------
 def fetch_cashchanger():
     url = "https://www.cashchanger.co/singapore"
     try:
         resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
+
         rates = {}
         rows = soup.select("table.table tbody tr")
-        for row in rows[:50]:  # adjust as needed
+        for row in rows:
             cols = row.find_all("td")
             if len(cols) >= 3:
                 code = cols[0].get_text(strip=True)
@@ -30,36 +28,30 @@ def fetch_cashchanger():
                 try:
                     rate = float(rate_text)
                     rates[code] = rate
-                except:
+                except ValueError:
                     continue
+
         if not rates:
             raise ValueError("No rates found on CashChanger")
         return rates, None
     except Exception as e:
         return None, f"CashChanger fetch failed: {e}"
 
-# -----------------------
-# Scraper: GrandSuperrich
-# -----------------------
 def fetch_grandsuperrich():
     url = "https://www.grandsuperrich.com/exchange"
     try:
         resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
-        # Example: find 100 SGD buy rate
-        # Adjust the selector depending on site HTML
-        rate_tag = soup.select_one("td:contains('SGD 100') + td")
+
+        rate_tag = soup.find("td", string="SGD 100")
         if rate_tag:
-            rate_text = rate_tag.get_text(strip=True).replace(",", "")
+            rate_text = rate_tag.find_next("td").get_text(strip=True).replace(",", "")
             return float(rate_text), None
         return 1.0, "GrandSuperrich: SGD 100 rate not found, using 1.0"
     except Exception as e:
         return 1.0, f"GrandSuperrich fetch failed: {e}"
 
-# -----------------------
-# Background updater
-# -----------------------
 def update_rates():
     while True:
         cashchanger_rates, cash_err = fetch_cashchanger()
@@ -72,16 +64,13 @@ def update_rates():
             estimated_rates = {code: round(rate * grandsuperrich_rate, 6)
                                for code, rate in cashchanger_rates.items()}
             CACHE["data"] = estimated_rates
-            CACHE["error"] = grand_err  # keep GrandSuperrich errors even if CashChanger worked
+            CACHE["error"] = grand_err
 
         CACHE["last_updated"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
         time.sleep(CACHE_TTL)
 
 threading.Thread(target=update_rates, daemon=True).start()
 
-# -----------------------
-# API endpoint
-# -----------------------
 @app.route("/api/estimated")
 def api_estimated():
     return jsonify({
@@ -90,9 +79,6 @@ def api_estimated():
         "error": CACHE["error"]
     })
 
-# -----------------------
-# HTML Page
-# -----------------------
 HTML_PAGE = """
 <!DOCTYPE html>
 <html>
@@ -145,7 +131,6 @@ async function loadRates() {
     document.getElementById("rates").innerHTML = table;
 }
 
-// Initial load and auto-refresh every 60s
 loadRates();
 setInterval(loadRates, 60000);
 </script>
@@ -157,9 +142,6 @@ setInterval(loadRates, 60000);
 def home():
     return render_template_string(HTML_PAGE)
 
-# -----------------------
-# Start server with Render $PORT
-# -----------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
