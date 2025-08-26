@@ -8,7 +8,7 @@ import os
 
 app = Flask(__name__)
 
-CACHE = {"data": None, "last_updated": None}
+CACHE = {"data": None, "last_updated": None, "error": None}
 CACHE_TTL = 60  # seconds
 
 # -----------------------
@@ -32,12 +32,14 @@ def fetch_cashchanger():
                     rates[code] = rate
                 except:
                     continue
-        return rates
+        if not rates:
+            raise ValueError("No rates found on CashChanger")
+        return rates, None
     except Exception as e:
-        return {"error": str(e)}
+        return None, f"CashChanger fetch failed: {e}"
 
 # -----------------------
-# Scraper: GrandSuperrich (SGD 100 note rate)
+# Scraper: GrandSuperrich
 # -----------------------
 def fetch_grandsuperrich():
     url = "https://www.grandsuperrich.com/exchange"
@@ -45,31 +47,33 @@ def fetch_grandsuperrich():
         resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
-        # Example: find 100 SGD buy rate (adjust selector to actual site)
+        # Example: find 100 SGD buy rate
+        # Adjust the selector depending on site HTML
         rate_tag = soup.select_one("td:contains('SGD 100') + td")
         if rate_tag:
             rate_text = rate_tag.get_text(strip=True).replace(",", "")
-            return float(rate_text)
-        return 1.0
-    except:
-        return 1.0
+            return float(rate_text), None
+        return 1.0, "GrandSuperrich: SGD 100 rate not found, using 1.0"
+    except Exception as e:
+        return 1.0, f"GrandSuperrich fetch failed: {e}"
 
 # -----------------------
 # Background updater
 # -----------------------
 def update_rates():
     while True:
-        cashchanger_rates = fetch_cashchanger()
-        grandsuperrich_rate = fetch_grandsuperrich()
-        estimated_rates = {}
+        cashchanger_rates, cash_err = fetch_cashchanger()
+        grandsuperrich_rate, grand_err = fetch_grandsuperrich()
 
-        if "error" not in cashchanger_rates:
-            for code, rate in cashchanger_rates.items():
-                estimated_rates[code] = round(rate * grandsuperrich_rate, 6)
+        if cash_err:
+            CACHE["error"] = cash_err
+            CACHE["data"] = None
         else:
-            estimated_rates = {"error": cashchanger_rates.get("error")}
+            estimated_rates = {code: round(rate * grandsuperrich_rate, 6)
+                               for code, rate in cashchanger_rates.items()}
+            CACHE["data"] = estimated_rates
+            CACHE["error"] = grand_err  # keep GrandSuperrich errors even if CashChanger worked
 
-        CACHE["data"] = estimated_rates
         CACHE["last_updated"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
         time.sleep(CACHE_TTL)
 
@@ -82,7 +86,8 @@ threading.Thread(target=update_rates, daemon=True).start()
 def api_estimated():
     return jsonify({
         "last_updated": CACHE["last_updated"],
-        "rates": CACHE["data"]
+        "rates": CACHE["data"],
+        "error": CACHE["error"]
     })
 
 # -----------------------
@@ -100,12 +105,14 @@ HTML_PAGE = """
         th, td { padding:8px 12px; border:1px solid #ccc; }
         th { background-color:#eee; }
         button { margin-top:10px; padding:6px 12px; }
+        #error { color:red; font-weight:bold; }
     </style>
 </head>
 <body>
 <div id="container">
     <h2>💱 Estimated Currency Rates (SGD)</h2>
     <p id="timestamp">Loading...</p>
+    <p id="error"></p>
     <table id="rates"></table>
     <button onclick="loadRates()">Refresh</button>
 </div>
@@ -114,18 +121,31 @@ HTML_PAGE = """
 async function loadRates() {
     const res = await fetch("/api/estimated");
     const data = await res.json();
+
     document.getElementById("timestamp").innerText = "Last updated: " + data.last_updated;
-    let table = "<tr><th>Currency</th><th>Rate (SGD)</th></tr>";
-    if(data.rates.error) {
-        table += `<tr><td colspan='2'>Error: ${data.rates.error}</td></tr>`;
+
+    const errorElem = document.getElementById("error");
+    if(data.error){
+        errorElem.innerText = data.error;
     } else {
+        errorElem.innerText = "";
+    }
+
+    let table = "<tr><th>Currency</th><th>Rate (SGD)</th></tr>";
+    if(data.rates){
         for (const [cur, rate] of Object.entries(data.rates)) {
             table += `<tr><td>${cur}</td><td>${rate}</td></tr>`;
         }
+    } else if(data.error){
+        table += `<tr><td colspan='2'>${data.error}</td></tr>`;
+    } else {
+        table += `<tr><td colspan='2'>No data available</td></tr>`;
     }
+
     document.getElementById("rates").innerHTML = table;
 }
 
+// Initial load and auto-refresh every 60s
 loadRates();
 setInterval(loadRates, 60000);
 </script>
@@ -138,7 +158,7 @@ def home():
     return render_template_string(HTML_PAGE)
 
 # -----------------------
-# Run server with Render $PORT
+# Start server with Render $PORT
 # -----------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
