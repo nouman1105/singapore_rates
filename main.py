@@ -1,102 +1,113 @@
-from flask import Flask, render_template_string
-from flask_socketio import SocketIO
+from flask import Flask, jsonify, render_template_string
 import requests
 from bs4 import BeautifulSoup
-import eventlet
-import time
+from datetime import datetime
 import threading
-
-# Needed for WebSockets in Flask-SocketIO on Render
-eventlet.monkey_patch()
+import time
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
 
-# =======================
-# Scraper Function
-# =======================
+# -----------------------
+# Global cache
+# -----------------------
+CACHE = {"data": None, "last_updated": None}
+CACHE_TTL = 60  # seconds
+
+# -----------------------
+# Scraper function
+# -----------------------
 def fetch_cashchanger_rates():
     url = "https://www.cashchanger.co/singapore"
     try:
         resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
-
         rates = {}
         rows = soup.select("table.table tbody tr")
-        for row in rows[:10]:  # limit to top 10 for demo
+        for row in rows[:10]:  # limit to top 10 currencies for demo
             cols = row.find_all("td")
             if len(cols) >= 3:
                 currency = cols[0].get_text(strip=True)
                 rate = cols[2].get_text(strip=True)
                 rates[currency] = rate
-        return {"source": "CashChanger", "rates": rates}
+        return rates
     except Exception as e:
-        return {"source": "CashChanger", "error": str(e)}
+        return {"error": str(e)}
 
-# =======================
-# Background Task
-# =======================
-def background_rate_updater():
+# -----------------------
+# Background updater
+# -----------------------
+def update_rates():
     while True:
-        data = fetch_cashchanger_rates()
-        socketio.emit("rates_update", data)  # broadcast to all clients
-        time.sleep(60)  # wait 60s before fetching again
+        CACHE["data"] = fetch_cashchanger_rates()
+        CACHE["last_updated"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+        time.sleep(CACHE_TTL)
 
 # Start background thread
-threading.Thread(target=background_rate_updater, daemon=True).start()
+threading.Thread(target=update_rates, daemon=True).start()
 
-# =======================
-# HTML Page with WebSocket
-# =======================
+# -----------------------
+# API endpoint
+# -----------------------
+@app.route("/api/rates")
+def api_rates():
+    return jsonify({
+        "last_updated": CACHE["last_updated"],
+        "rates": CACHE["data"]
+    })
+
+# -----------------------
+# HTML Page
+# -----------------------
 HTML_PAGE = """
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Currency Rates</title>
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-  <style>
-    body { display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial; }
-    #container { text-align: center; }
-    table { margin: auto; border-collapse: collapse; }
-    th, td { padding: 8px 12px; border: 1px solid #ccc; }
-    th { background-color: #f2f2f2; }
-  </style>
+    <title>Currency Rates</title>
+    <style>
+        body { display:flex; justify-content:center; align-items:center; height:100vh; font-family:Arial; background:#f5f5f5; }
+        #container { text-align:center; padding:20px; background:white; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+        table { margin:auto; border-collapse: collapse; }
+        th, td { padding:8px 12px; border:1px solid #ccc; }
+        th { background-color:#eee; }
+        button { margin-top:10px; padding:6px 12px; }
+    </style>
 </head>
 <body>
-  <div id="container">
-    <h2>💱 Live Currency Rates</h2>
-    <p id="status">Waiting for data...</p>
+<div id="container">
+    <h2>💱 Currency Rates (SGD)</h2>
+    <p id="timestamp">Loading...</p>
     <table id="rates"></table>
-  </div>
+    <button onclick="loadRates()">Refresh</button>
+</div>
 
-  <script>
-    const socket = io();
+<script>
+async function loadRates() {
+    const res = await fetch("/api/rates");
+    const data = await res.json();
+    document.getElementById("timestamp").innerText = "Last updated: " + data.last_updated;
+    let table = "<tr><th>Currency</th><th>Rate</th></tr>";
+    if(data.rates.error) {
+        table += `<tr><td colspan='2'>Error: ${data.rates.error}</td></tr>`;
+    } else {
+        for (const [cur, rate] of Object.entries(data.rates)) {
+            table += `<tr><td>${cur}</td><td>${rate}</td></tr>`;
+        }
+    }
+    document.getElementById("rates").innerHTML = table;
+}
 
-    socket.on("connect", () => {
-      document.getElementById("status").innerText = "Connected. Waiting for updates...";
-    });
-
-    socket.on("rates_update", (data) => {
-      if (data.error) {
-        document.getElementById("status").innerText = "[Error] " + data.error;
-        return;
-      }
-      document.getElementById("status").innerText = "Source: " + data.source;
-      let table = "<tr><th>Currency</th><th>Rate</th></tr>";
-      for (const [cur, rate] of Object.entries(data.rates)) {
-        table += `<tr><td>${cur}</td><td>${rate}</td></tr>`;
-      }
-      document.getElementById("rates").innerHTML = table;
-    });
-  </script>
+// Auto-refresh every 60 seconds
+loadRates();
+setInterval(loadRates, 60000);
+</script>
 </body>
 </html>
 """
 
 @app.route("/")
-def index():
+def home():
     return render_template_string(HTML_PAGE)
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000)
