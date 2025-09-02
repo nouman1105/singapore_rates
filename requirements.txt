@@ -4,3 +4,5 @@ eventlet
 requests
 beautifulsoup4
 gunicorn
+streamlit
+selenium

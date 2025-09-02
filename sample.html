@@ -1,0 +1,816 @@
+<!--<div ng-include="'menu_bar.html'"></div>-->
+<header>
+    <div class="container ng-scope" ng-controller="MenuBarCtrl">
+        <div class="row no-margin-left-right margin-top20">
+            <div class="col-xs-12 row-flag">
+                <div class="col-xs-6 col-sm-3 col-md-3 col-sm-offset-7 col-md-offset-9 header-flag no-padding-left-right" style="padding-right: 0px;"><img class="img-button" width="25" height="25" src="/assets/images/head_lan_th_icon.png" ng-click="changeLanguage('th')"> <img class="img-button" width="25" height="25" src="/assets/images/head_lan_us_icon.png" ng-click="changeLanguage('en')">
+                    <img class="img-button last-flag" width="25" height="25" src="/assets/images/head_lan_chi_icon.png" ng-click="changeLanguage('ch')">
+                    <img class="img-button last-flag" width="25" height="25" src="/assets/images/head_lan_jp_icon.png" ng-click="changeLanguage('jp')" style="margin-right: 0px; border: 1px solid #eee">
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-1 no-padding-left has-right btn-member-login no-padding-left-right" id="member-logout" style="display: none;">
+                    <div class="div-btn-login superrich-bg-yellow text-center img-button" ng-click="memberLogout()">
+                        <div class="loader" id="member-logout-loading" style="display: none;"></div>
+                        MEMBER LOGOUT
+                    </div>
+                </div>
+                <div id="div-login" style="display: none;">
+                    <div class="superrich-bg-green" id="div-bg-login"></div>
+                    <form class="form-horizontal ng-pristine ng-valid-email ng-invalid ng-invalid-required ng-valid-maxlength" id="login-header-form" novalidate="novalidate">
+                        <div class="form-group">
+                            <div class="col-xs-12"><input type="email" class="form-control superrich-input ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required ng-valid-maxlength" id="inputLoginHeaderEmail" ng-model="header.email" maxlength="50" name="inputLoginHeaderEmail" placeholder="Email" style="border-radius: 0" required="" aria-required="true"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12"><input type="password" class="form-control superrich-input ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-maxlength" id="inputLoginHeaderPassword" ng-model="header.password" maxlength="20" name="inputLoginHeaderPassword" placeholder="Password" style="border-radius: 0" required="" aria-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-7"><a href="" ng-click="forgot()">
+                                <div class="superrich-color-white" id="btn-forgot"> Forgot Password</div>
+                            </a></div>
+                            <div class="col-xs-5"><a href="">
+                                <div class="superrich-color-white text-bold text-right" ng-click="memberLogin()" style="border-left: 1px solid white">
+                                    <div class="loader" id="member-login-loading" style="display: none;"></div>
+                                    SIGN IN
+                                </div>
+                            </a></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="superrich-bg-fb button-web superrich-color-white margin-left-right-auto" ng-click="fbLogin()">
+                                    <div class="loader" id="fb-login-loading" style="display: none;"></div>
+                                    <span ng-bind="'MEMBER.LOGIN_FB' | translate" class="ng-binding">Login with Facebook</span></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-wrapper margin-top20">
+            <div class="container-fluid no-padding">
+                <nav class="navbar navbar-inverse navbar-static-top">
+                    <div class="container no-padding">
+                        <div class="navbar-header no-margin-left-right">
+                            <button type="button" class="navbar-toggle collapsed no-margin-right no-padding-right" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+                            <a class="navbar-brand no-padding" href="#!/en" id="logo"> <img src="/assets/images/head_logo.png" alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช"> </a></div>
+                        <div class="superrich-color-green header-menu-social-icon site-web has-right">
+                            <a href="https://line.me/R/ti/p/%40vkh6221v" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Top_line_button')"><img src="assets/images/head_line_icon.png" class="img-button"></a>
+                            <a href="https://www.facebook.com/superrichth" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Top_facebook_button')"><img src="assets/images/head_fb_icon.png" class="img-button"></a>
+                            <a href="https://www.instagram.com/superrichth/?hl=en" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Top_instagram_button')"><img src="assets/images/head_instra_icon.png" class="img-button"></a>
+                            <a href="https://twitter.com/superrichTH" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Top_twitter_button')"><img src="assets/images/head_twit_icon.png" class="img-button"></a>
+                            <img src="assets/images/index_cut_25.png" style="margin-right: 0px">
+                            <a href="tel:+6622544444" ng-click="gaTackEvent('Homepage','Click','Tel_button')"> <span class="superrich-color-green">+66 (0) 2254 4444 </span></a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse no-margin-left-right">
+                            <ul class="nav navbar-nav">
+                                <li class="site-mobile font-header" style="font-family: SuperRichGalSILR; font-size: 14px;"><a href="#!/en" ng-bind="'MENU.HOME' | translate" class="ng-binding">HOME</a>
+                                </li>
+                                <li class="dropdown" id="nav-exchange"><a href="#!/en/exchange" class="dropdown-toggle font-header ng-binding" data-toggle="dropdown" role="button" id="exchange" aria-haspopup="true" aria-expanded="false" ng-bind="'MENU.EXCHANGE_RATE' | translate" style="font-family: SuperRichGalSILR; font-size: 14px;">EXCHANGE RATE</a>
+                                    <ul class="dropdown-menu font-normal" role="menu" style="font-family: SuperRichArial; font-size: 14px;">
+                                        <li><a href="#!/en/exchange#converter-section" du-smooth-scroll="" du-scrollspy="" id="exchange-converter-section"> <span ng-bind="'MENU.EXCHANGE_RATE_CONVERTER' | translate" class="ng-binding">Converter</span></a></li>
+                                        <li><a href="#!/en/exchange#rate-section" du-smooth-scroll="" du-scrollspy="" id="exchange-rate-section"> <span ng-bind="'MENU.EXCHANGE_RATE_RATE' | translate" class="ng-binding">Exchange Rates</span></a></li>
+                                        <li><a href="#!/en/exchange#chart-section" du-smooth-scroll="" du-scrollspy="" id="exchange-chart-section"> <span ng-bind="'MENU.EXCHANGE_RATE_HISTORY' | translate" class="ng-binding">Historical Rates</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#!/en/currency#USD" class="dropdown-toggle font-header ng-binding" data-toggle="dropdown" id="currency" role="button" aria-haspopup="true" aria-expanded="false" ng-bind="'MENU.CURRENCY' | translate" style="font-family: SuperRichGalSILR; font-size: 14px;">CURRENCY</a>
+                                    <ul class="dropdown-menu font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                        <!-- ngRepeat: currencyItem in currency --><li ng-repeat="currencyItem in currency" class="ng-scope"><a href="#!/en/currency#USD" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section1">
+                                            <span class="ng-binding">US Dollars</span> </a></li><!-- end ngRepeat: currencyItem in currency --><li ng-repeat="currencyItem in currency" class="ng-scope"><a href="#!/en/currency#GBP" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section2">
+                                            <span class="ng-binding">British Pounds</span> </a></li><!-- end ngRepeat: currencyItem in currency --><li ng-repeat="currencyItem in currency" class="ng-scope"><a href="#!/en/currency#EUR" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section3">
+                                            <span class="ng-binding">Euros</span> </a></li><!-- end ngRepeat: currencyItem in currency --><li ng-repeat="currencyItem in currency" class="ng-scope"><a href="#!/en/currency#JPY" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section4">
+                                            <span class="ng-binding">Japanese Yen</span> </a></li><!-- end ngRepeat: currencyItem in currency --><li ng-repeat="currencyItem in currency" class="ng-scope"><a href="#!/en/currency#CNY" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section5">
+                                            <span class="ng-binding">Chinese Yuan</span> </a></li><!-- end ngRepeat: currencyItem in currency --><li ng-repeat="currencyItem in currency" class="ng-scope"><a href="#!/en/currency#THB" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section6">
+                                            <span class="ng-binding">Thai Baht</span> </a></li><!-- end ngRepeat: currencyItem in currency -->
+                                        <li class="site-web"><a href="#!/en/currency#bank-note" du-smooth-scroll="" du-scrollspy="" id="currency-bank-note-section"><span ng-bind="'MENU.CURRENCY_BANK_NOTE' | translate" class="ng-binding">Banknotes</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#!/en/promotion" class="dropdown-toggle font-header ng-binding" data-toggle="dropdown" id="promotion" role="button" aria-haspopup="true" aria-expanded="false" ng-bind="'MENU.PROMOTION&amp;NEWS' | translate" style="font-family: SuperRichGalSILR; font-size: 14px;">NEWS &amp; PROMOTION</a>
+                                    <ul class="dropdown-menu font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                        <li><a href="#!/en/promotion#promotion-list" du-smooth-scroll="" du-scrollspy="" id="promotion-promotion-section"><span ng-bind="'MENU.PROMOTION&amp;NEWS_PROMOTION' | translate" class="ng-binding">Promotions</span></a></li>
+                                        <li><a href="#!/en/promotion#news-section" du-smooth-scroll="" du-scrollspy="" id="promotion-news-section"><span ng-bind="'MENU.PROMOTION&amp;NEWS_NEWS' | translate" class="ng-binding">News</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#!/en/contact" class="dropdown-toggle font-header ng-binding" data-toggle="dropdown" id="contact" role="button" aria-haspopup="true" aria-expanded="false" ng-bind="'MENU.CONTACT' | translate" style="font-family: SuperRichGalSILR; font-size: 14px;">CONTACT</a>
+                                    <ul class="dropdown-menu font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                        <li><a href="#!/en/contact#branch" du-smooth-scroll="" du-scrollspy="" id="contact-contact-section1"><span ng-bind="'MENU.CONTACT_LOCATION' | translate" class="ng-binding">Locations</span></a></li>
+                                        <li><a href="#!/en/contact#faq" du-smooth-scroll="" du-scrollspy="" id="contact-faq-section1"><span ng-bind="'MENU.CONTACT_FAQ' | translate" class="ng-binding">FAQ</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#!/en/about" class="dropdown-toggle last font-header ng-binding" data-toggle="dropdown" id="about" role="button" aria-haspopup="true" aria-expanded="false" ng-bind="'MENU.ABOUT_US' | translate" style="font-family: SuperRichGalSILR; font-size: 14px;">ABOUT US</a>
+                                    <ul class="dropdown-menu font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                        <li><a href="#!/en/about#company-profile" du-smooth-scroll="" du-scrollspy="" id="about-about-section1"><span ng-bind="'MENU.ABOUT_US_COM_PROFILE' | translate" class="ng-binding">Company Profile</span></a></li>
+                                        <li><a href="#!/en/about#join-us-section" du-smooth-scroll="" du-scrollspy="" id="about-join-us-section"><span ng-bind="'MENU.ABOUT_US_JOIN_US' | translate" class="ng-binding">Join Us</span></a></li>
+                                        <li><a href="#!/en/privacy-policy" du-smooth-scroll="" du-scrollspy="" id="privacy-policy"><span ng-bind="'MENU.ABOUT_US_PRIVACY_POLICY' | translate" class="ng-binding">Privacy Policy</span></a></li>
+                                        <li><a href="#!/en/srgr-privacy-policy" du-smooth-scroll="" du-scrollspy="" id="srgr-privacy-policy"><span ng-bind="'MENU.ABOUT_US_SRGR_PRIVACY_POLICY' | translate" class="ng-binding">Superrich Green Group</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ngView: --><div ng-view="" class="ng-scope"><noscript class="ng-scope">
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTMWLBH9G6" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<div class="container-body ng-scope">
+    <input type="hidden" id="meta-title" value="Superrich Thailand : The Best Currency Exchange Rates | Super Rich Thailand" autocomplete="off">
+    <input type="hidden" id="meta-desc" value="Foreign currency exchange for all currencies which the high exchange rate in the central Bangkok in Pratunam area." autocomplete="off">
+    <h1 class="hide ng-binding">The Best Currency Exchange Rate</h1>
+
+    <section class="banner-section">
+        <div class="container-fluid no-padding"><a href="" class="link-to-content">
+            <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <!-- ngRepeat: banner in banners --><div class="item ng-scope active" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/8695224403b3bdaf54298bbd7276bd7b1754014410872.jpeg" src="https://www.superrichthailand.com:443/uploads/images/8695224403b3bdaf54298bbd7276bd7b1754014410872.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="0" autocomplete="off"> <input type="hidden" id="desc-banner0" value="Exclusive privilege for SuperrichTH App members who exchange Thai Baht for foreign currency with a minimum amount of 10,000 THB.
+
+Receive a free Gentle YAG Remove treatment voucher worth 4,000 THB for THE KLINIQUE
+
+Terms and Conditions:
+
+- This privilege is exclusively for SuperrichTH App members only.
+- Eligible for customers who exchange Thai Baht for foreign currency 10,000 THB and above.
+- Redemption period: 1 August – 31 October 2025
+- Limited to 1 voucher / 1 privilege / 1 person
+- The voucher cannot be redeemed/exchanged/refunded for cash or any other item.
+- The voucher cannot be combined with other promotions." data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/1f0218c126caa0a8918741e83868c4a11749467614647.jpeg" src="https://www.superrichthailand.com:443/uploads/images/1f0218c126caa0a8918741e83868c4a11749467614647.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="1" autocomplete="off"> <input type="hidden" id="desc-banner1" value="ซุปเปอร์ริช ไทยแลนด์ ประกาศยกเลิกให้บริการรับซื้อ-ขาย สกุลเงิน ฮ่องกง ดอลลาร์ (HKD) รุ่นเก่า (ตามภาพ)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/f41c8c2ead90a3ae457f19acabcbc0591749467601442.jpeg" src="https://www.superrichthailand.com:443/uploads/images/f41c8c2ead90a3ae457f19acabcbc0591749467601442.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="2" autocomplete="off"> <input type="hidden" id="desc-banner2" value="ซุปเปอร์ริช ไทยแลนด์ ประกาศยกเลิกให้บริการรับซื้อ-ขาย สกุลเงิน ฮ่องกง ดอลลาร์ (HKD) รุ่นเก่า (ตามภาพ)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/59d829a6b46e6d0c8f35d7722332a2d11749467520546.jpeg" src="https://www.superrichthailand.com:443/uploads/images/59d829a6b46e6d0c8f35d7722332a2d11749467520546.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="3" autocomplete="off"> <input type="hidden" id="desc-banner3" value="ซุปเปอร์ริช ไทยแลนด์ ประกาศยกเลิกให้บริการรับซื้อ-ขาย สกุลเงิน ฮ่องกง ดอลลาร์ (HKD) รุ่นเก่า (ตามภาพ)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/efc4c1f17072f3a37f6fdb3b63b836f01749639424241.jpeg" src="https://www.superrichthailand.com:443/uploads/images/efc4c1f17072f3a37f6fdb3b63b836f01749639424241.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="4" autocomplete="off"> <input type="hidden" id="desc-banner4" value="ซุปเปอร์ริช ไทยแลนด์ ประกาศยกเลิกให้บริการรับซื้อ-ขาย สกุลเงิน ฮ่องกง ดอลลาร์ (HKD) รุ่นเก่า (ตามภาพ)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/8dd435fe9cd8af39f3850a7b253101451749467482165.jpeg" src="https://www.superrichthailand.com:443/uploads/images/8dd435fe9cd8af39f3850a7b253101451749467482165.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="5" autocomplete="off"> <input type="hidden" id="desc-banner5" value="ซุปเปอร์ริช ไทยแลนด์ ประกาศยกเลิกให้บริการรับซื้อ-ขาย สกุลเงิน ฮ่องกง ดอลลาร์ (HKD) รุ่นเก่า (ตามภาพ)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/cc2047979b7f8c18b257193e632951f91744882105980.jpeg" src="https://www.superrichthailand.com:443/uploads/images/cc2047979b7f8c18b257193e632951f91744882105980.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="6" autocomplete="off"> <input type="hidden" id="desc-banner6" value="ซุปเปอร์ริช ไทยแลนด์
+ประกาศยกเลิกให้บริการรับซื้อ-ขาย สกุลเงิน เดนมาร์ก โครน (DKK)
+รุ่น 2009 Series ธนบัตรประเภทฉบับละ 1000" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/5a4640dd3f143eff4138528f54dc6f1c1742442297064.png" src="https://www.superrichthailand.com:443/uploads/images/5a4640dd3f143eff4138528f54dc6f1c1742442297064.png">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="7" autocomplete="off"> <input type="hidden" id="desc-banner7" value="nsurverse รับส่วนลดพิเศษทันที 5% ไม่มีขั้นต่ำ" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/f0e08f20dbd75654a452e3e90a7885fd1742191623983.jpeg" src="https://www.superrichthailand.com:443/uploads/images/f0e08f20dbd75654a452e3e90a7885fd1742191623983.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="8" autocomplete="off"> <input type="hidden" id="desc-banner8" value="คูปองแทนเงินสดมูลค่า 500 บาท  สำหรับทานอาหารที่ร้าน Shu Daxia Hot Pot" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/cee68d3cdbe0bd24609ecd20ef46026e1739440442522.jpeg" src="https://www.superrichthailand.com:443/uploads/images/cee68d3cdbe0bd24609ecd20ef46026e1739440442522.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="9" autocomplete="off"> <input type="hidden" id="desc-banner9" value="ซุปเปอร์ริช ไทยแลนด์ ยินดีรับแลกเปลี่ยนสกุลเงินดอลลาร์บรูไน (BND) รุ่นเก่า" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/672af9db2d4449f1edbad4c614b9a3a41732528233874.jpeg" src="https://www.superrichthailand.com:443/uploads/images/672af9db2d4449f1edbad4c614b9a3a41732528233874.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="10" autocomplete="off"> <input type="hidden" id="desc-banner10" value="ประกาศยกเลิกให้บริการซื้อ-ขาย ธนบัตรสกุลเงิน โอมาน เรียล (OMR) รุ่นเก่า
+ทุกธนบัตรประเภทฉบับ (ตามภาพ) ตั้งแต่วันที่ 25 พฤศจิกายน 2567 เป็นต้นไป" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/bfe28a1f033a451732815984123765ed1719800295093.jpeg" src="https://www.superrichthailand.com:443/uploads/images/bfe28a1f033a451732815984123765ed1719800295093.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="11" autocomplete="off"> <input type="hidden" id="desc-banner11" value="พิเศษเฉพาะลูกค้า Go Travel รับส่วนลดสูงสุด 100 บาท" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/ed58c5c3e25e6914fed9d79b3e7f91b21698659329895.jpeg" src="https://www.superrichthailand.com:443/uploads/images/ed58c5c3e25e6914fed9d79b3e7f91b21698659329895.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="12" autocomplete="off"> <input type="hidden" id="desc-banner12" value="Super Easy Pay" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/05a61c4fb3ded0eb01eb27752abf4f021716785202001.jpeg" src="https://www.superrichthailand.com:443/uploads/images/05a61c4fb3ded0eb01eb27752abf4f021716785202001.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="13" autocomplete="off"> <input type="hidden" id="desc-banner13" value="ซุปเปอร์ริช ไทยแลนด์ ยินดีรับแลกเปลี่ยนสกุลเงินฮ่องกงดอลลาร์ (HKD)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/0f2af2bf51d3994c0388398b5f5652c31716785168078.jpeg" src="https://www.superrichthailand.com:443/uploads/images/0f2af2bf51d3994c0388398b5f5652c31716785168078.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="14" autocomplete="off"> <input type="hidden" id="desc-banner14" value="ซุปเปอร์ริช ไทยแลนด์ ยินดีรับแลกเปลี่ยนสกุลเงินฮ่องกงดอลลาร์ (HKD)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/7ab20ed6ba51ddfe656851ec46e89d8f1716785072059.jpeg" src="https://www.superrichthailand.com:443/uploads/images/7ab20ed6ba51ddfe656851ec46e89d8f1716785072059.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="15" autocomplete="off"> <input type="hidden" id="desc-banner15" value="ซุปเปอร์ริช ไทยแลนด์ ยินดีรับแลกเปลี่ยนสกุลเงินฮ่องกงดอลลาร์ (HKD)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/66ce5ba0721484725ce47f97d40200c31716784985726.jpeg" src="https://www.superrichthailand.com:443/uploads/images/66ce5ba0721484725ce47f97d40200c31716784985726.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="16" autocomplete="off"> <input type="hidden" id="desc-banner16" value="ซุปเปอร์ริช ไทยแลนด์ ยินดีรับแลกเปลี่ยนสกุลเงินฮ่องกงดอลลาร์ (HKD)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/229a019f10bf4a4a4771f675b119fdbc1683016455933.jpeg" src="https://www.superrichthailand.com:443/uploads/images/229a019f10bf4a4a4771f675b119fdbc1683016455933.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="17" autocomplete="off"> <input type="hidden" id="desc-banner17" value="ปเปอร์ริช ไทยแลนด์ ยินดีรับแลกเปลี่ยนสกุลเงินฮ่องกงดอลลาร์ (HKD)" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/e68065ba5fe95953beb6476dd31336e21679466091998.jpeg" src="https://www.superrichthailand.com:443/uploads/images/e68065ba5fe95953beb6476dd31336e21679466091998.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="18" autocomplete="off"> <input type="hidden" id="desc-banner18" value="Superrich Thailand is adjusting currency buying rates of Canadian Dollar (CAD) for 100, 50, 20, 10, 5 banknotes issued between 2001-2006. The adjusted rate is the exchange rate at the time of exchange reduced by 1 Thai Baht (One Thai Baht ). This adjustment is valid from now onwards." data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/b9a487f7f798e71aab547c3380afff4b1679044798031.jpeg" src="https://www.superrichthailand.com:443/uploads/images/b9a487f7f798e71aab547c3380afff4b1679044798031.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="19" autocomplete="off"> <input type="hidden" id="desc-banner19" value="ธนบัตรประเภทฉบับ 50 ดอลลาร์ ที่มีลักษณะ ใหม่ สะอาด ปราศจากรอยพับ รอยขีดข่วน น้ำหมึกปากกาและไม่ประทับตรา
+
+เพิ่มจากอัตราแลกเปลี่ยนปกติ ณ เวลานั้น 0.05 บาท (ห้าสตางค์)
+ตั้งแต่วันที่ 16 มีนาคม 2566 เป็นต้นไป" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/801ccfb1d56d14d9300780bed9c6e2d41667801204213.jpeg" src="https://www.superrichthailand.com:443/uploads/images/801ccfb1d56d14d9300780bed9c6e2d41667801204213.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="20" autocomplete="off"> <input type="hidden" id="desc-banner20" value="ไปใช้เพื่อหลอกลวงให้หลงเชื่อ โอนเงินเพื่อขอสินเชื่อกับบริษัทฯ
+
+บริษัทฯ ขอเน้นย้ำว่า ทางบริษัทฯ ไม่มีส่วนเกี่ยวข้องกับธุรกรรมดังกล่าว
+และไม่มีบริการสินเชื่อทางการเงิน-การลงทุนทุกประเภท
+อย่างสิ้นเชิงไม่ว่าจะผ่านช่องทางใดๆ" data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/646f69d500500066fd2ff8d8ce750ec31661339583332.jpeg" src="https://www.superrichthailand.com:443/uploads/images/646f69d500500066fd2ff8d8ce750ec31661339583332.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="21" autocomplete="off"> <input type="hidden" id="desc-banner21" value="Superrich Thailand is adjusting currency buying rates of Swiss franc (CHF) for 1,000, 200, 100, 50, 20, 10. 25 August 2022 is the end date that we will accept. 
+The adjusted rate is the exchange rate at the time of exchange reduced 
+by 1 Thai Baht." data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/07cb69b2df2bb4e5e45310c834bdb6bb1661339672741.jpeg" src="https://www.superrichthailand.com:443/uploads/images/07cb69b2df2bb4e5e45310c834bdb6bb1661339672741.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="22" autocomplete="off"> <input type="hidden" id="desc-banner22" value="Dear Valued Customer,
+
+Superrich Thailand is adjusting currency buying rates of Pound Sterling (GBP) for £50 and £20 (paper). 
+
+The adjusted rate is the exchange rate at the time of exchange reduced by 0.30 Thai Baht (30 Satang). 30 August 2022 is the end date that we will accept." data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/7b258896461a6fef0c820710d553c9461644822811604.jpeg" src="https://www.superrichthailand.com:443/uploads/images/7b258896461a6fef0c820710d553c9461644822811604.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="23" autocomplete="off"> <input type="hidden" id="desc-banner23" value="We would be pleased to accept Sri Lanka (LKR) from 7 February 2022 onwards." data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/8cea4e01e3e3db73a1444ce6927982391644822800389.jpeg" src="https://www.superrichthailand.com:443/uploads/images/8cea4e01e3e3db73a1444ce6927982391644822800389.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="24" autocomplete="off"> <input type="hidden" id="desc-banner24" value="We would be pleased to accept Bangladesh (BDT) from 7 February 2022 onwards." data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="banner in banners"><img alt="The best currency exchange rates | อัตราแลกเปลี่ยนเงินที่ดีที่สุด | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/b2ca6f04d210e48aae7c4a345a0a057f1661392647677.jpeg" src="https://www.superrichthailand.com:443/uploads/images/b2ca6f04d210e48aae7c4a345a0a057f1661392647677.jpeg">
+                        <div class="carousel-caption"><input type="hidden" class="order-num" value="25" autocomplete="off"> <input type="hidden" id="desc-banner25" value="We would be pleased to accept Israel (ILS) from 7 February 2022 onwards." data-link="" autocomplete="off"></div>
+                    </div><!-- end ngRepeat: banner in banners -->
+                </div>
+            </div>
+        </a> <a href="" class="link-to-content">
+            <div id="banner-description">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-lg-4 col-lg-offset-8">
+<!--                            <div class="text-bold superrich-color-white text-shadow has-center font-normal"><span-->
+<!--                                    ng-bind="'HOME.TITLE_BANNER' | translate"></span></div>-->
+                            <!--<div class="superrich-color-white text-shadow has-center margin-top10 font-normal"-->
+                                 <!--style="min-height: 40px;"><span id="desc-banner"-->
+                                                                 <!--ng-bind="'HOME.DESC_BANNER' | translate"></span></div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+            <div class="div-rate"><a href="" class="site-large-web link-to-content">
+                <div style="width: 100%; height: 720px; position: static;"></div>
+            </a>
+                <div class="container">
+                    <div class="table-responsive" id="table-rate">
+                        <table class="table table-striped">
+                            <caption class="superrich-color-black text-bold font-header" style="font-family: SuperRichGalSILR; font-size: 14px;"><img src="assets/images/rate_head_icon.png" class="vertical-middle"> <span id="home-rate" ng-bind="'HOME.RATE_TO_DAY' | translate" class="ng-binding">HEADQUARTER (Rajdamri1) RATE UPDATE </span>
+                            </caption>
+                            <tbody>
+                            <tr class="text-bold font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                <td class="center"><span ng-bind="'HOME.CURRENCY' | translate" class="ng-binding">CURRENCY</span></td>
+                                <td class="center"><span ng-bind="'HOME.BUYING' | translate" class="ng-binding">BUYING</span></td>
+                                <td class="center"><span ng-bind="'HOME.SELLING' | translate" class="ng-binding">SELLING</span></td>
+                            </tr>
+                            <!-- ngRepeat: rate in rates --><tr ng-repeat="rate in rates" class="ng-scope">
+                                <td class="text-bold center"><img alt="" width="25" height="25" ng-src="https://www.superrichthailand.com:443/assets/images/usd_icon.png" src="https://www.superrichthailand.com:443/assets/images/usd_icon.png"> <span ng-bind="rate.cUnit" class="ng-binding">USD</span></td>
+                                <td class="superrich-color-light-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cBuying, rate.rate[0].rateDigit)" class="ng-binding">32.24</span>
+                                </td>
+                                <td class="superrich-color-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cSelling, rate.rate[0].rateDigit)" class="ng-binding">32.27</span>
+                                </td>
+                            </tr><!-- end ngRepeat: rate in rates --><tr ng-repeat="rate in rates" class="ng-scope">
+                                <td class="text-bold center"><img alt="" width="25" height="25" ng-src="https://www.superrichthailand.com:443/assets/images/gbp_icon.png" src="https://www.superrichthailand.com:443/assets/images/gbp_icon.png"> <span ng-bind="rate.cUnit" class="ng-binding">GBP</span></td>
+                                <td class="superrich-color-light-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cBuying, rate.rate[0].rateDigit)" class="ng-binding">43.55</span>
+                                </td>
+                                <td class="superrich-color-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cSelling, rate.rate[0].rateDigit)" class="ng-binding">43.65</span>
+                                </td>
+                            </tr><!-- end ngRepeat: rate in rates --><tr ng-repeat="rate in rates" class="ng-scope">
+                                <td class="text-bold center"><img alt="" width="25" height="25" ng-src="https://www.superrichthailand.com:443/assets/images/eur_icon.png" src="https://www.superrichthailand.com:443/assets/images/eur_icon.png"> <span ng-bind="rate.cUnit" class="ng-binding">EUR</span></td>
+                                <td class="superrich-color-light-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cBuying, rate.rate[0].rateDigit)" class="ng-binding">37.70</span>
+                                </td>
+                                <td class="superrich-color-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cSelling, rate.rate[0].rateDigit)" class="ng-binding">37.85</span>
+                                </td>
+                            </tr><!-- end ngRepeat: rate in rates --><tr ng-repeat="rate in rates" class="ng-scope">
+                                <td class="text-bold center"><img alt="" width="25" height="25" ng-src="https://www.superrichthailand.com:443/assets/images/jpy_icon.png" src="https://www.superrichthailand.com:443/assets/images/jpy_icon.png"> <span ng-bind="rate.cUnit" class="ng-binding">JPY</span></td>
+                                <td class="superrich-color-light-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cBuying, rate.rate[0].rateDigit)" class="ng-binding">0.2190</span>
+                                </td>
+                                <td class="superrich-color-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cSelling, rate.rate[0].rateDigit)" class="ng-binding">0.2200</span>
+                                </td>
+                            </tr><!-- end ngRepeat: rate in rates --><tr ng-repeat="rate in rates" class="ng-scope">
+                                <td class="text-bold center"><img alt="" width="25" height="25" ng-src="https://www.superrichthailand.com:443/assets/images/cny_icon.png" src="https://www.superrichthailand.com:443/assets/images/cny_icon.png"> <span ng-bind="rate.cUnit" class="ng-binding">CNY</span></td>
+                                <td class="superrich-color-light-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cBuying, rate.rate[0].rateDigit)" class="ng-binding">4.530</span>
+                                </td>
+                                <td class="superrich-color-green text-bold center"><span ng-bind="convertDecimal(rate.rate[0].cSelling, rate.rate[0].rateDigit)" class="ng-binding">4.550</span>
+                                </td>
+                            </tr><!-- end ngRepeat: rate in rates -->
+                            </tbody>
+                            <tfoot>
+                            <tr class="superrich-bg-yellow text-bold">
+                                <td colspan="3"><span class="glyphicon glyphicon-menu-right menu-right" aria-hidden="true"></span>
+                                    <!--<a class="href-style font-normal-thai" href="{{'#!/' + lang + '/exchange'}}" ng-click="gaTackEvent('Homepage','Click','View_all_currencies_button')">-->
+                                    <a class="href-style font-normal-thai" href="https://www.superrichthailand.com/#!/en/exchange" ng-click="gaTackEvent('Homepage','Click','View_all_currencies_button')">
+                                        <span ng-bind="'HOME.VIEW_ALL_CURRENCIES' | translate" class="ng-binding">View all currencies</span></a></td>
+                            </tr>
+                            <tr class="superrich-bg-green superrich-color-white text-bold font-header" style="font-family: SuperRichGalSILR; font-size: 14px;">
+                                <td colspan="3"><span ng-bind="'HOME.GET_CURRENCY' | translate" class="ng-binding">GET CURRENCY</span></td>
+                            </tr>
+                            <tr class="superrich-bg-green">
+                                <td colspan="3"><span class="plain-select white"> <select class="inp white" id="selectCurrency" name="selectCurrency" aria-label="input" style="height: 34px;"><option value="">Select Currency</option><option value="" data-demon="" data-unit="USD" data-buy="32.24" data-sell="32.27">USD</option><option value="" data-demon="" data-unit="GBP" data-buy="43.55" data-sell="43.65">GBP</option><option value="" data-demon="" data-unit="EUR" data-buy="37.7" data-sell="37.85">EUR</option><option value="" data-demon="" data-unit="JPY" data-buy="0.219" data-sell="0.22">JPY</option><option value="" data-demon="" data-unit="CNY" data-buy="4.53" data-sell="4.55">CNY</option></select> </span>
+                                </td>
+                            </tr>
+                            <tr class="superrich-bg-green">
+                                <td colspan="3"><span class="text-super-normal superrich-color-yellow" id="exchangeDesc"></span></td>
+                            </tr>
+                            <tr class="superrich-bg-green">
+                                <td colspan="3">
+                                    <div class="row no-margin-left-right row-buy-sell">
+                                        <div class="col-xs-6 left has-center font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                            <div id="button-buy" class="superrich-input superrich-color-white button-buy-sell"><span ng-bind="'HOME.BUYING' | translate" class="ng-binding">BUYING</span></div>
+                                            <div class="superrich-color-white has-center margin-top10"></div>
+                                            <div class="superrich-color-white has-center">
+                                                <div ng-bind="'HOME.TO_BAHT1' | translate" class="ng-binding">Foreign Currencies</div>
+                                                <div ng-bind="'HOME.TO_BAHT2' | translate" class="ng-binding">to Thai Baht</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 right has-center font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                            <div id="button-sell" class="superrich-input superrich-color-white button-buy-sell select">
+                                                <span ng-bind="'HOME.SELLING' | translate" class="ng-binding">SELLING</span></div>
+                                            <div class="superrich-color-white has-center margin-top10">
+                                                <div ng-bind="'HOME.BAHT_TO1' | translate" class="ng-binding">Thai Baht</div>
+                                                <div ng-bind="'HOME.BAHT_TO2' | translate" class="ng-binding">to Foreign Currencies</div>
+                                            </div>
+                                            <div class="superrich-color-white has-center"></div>
+                                        </div>
+                                        <input type="hidden" id="buyRate" name="buyRate" value="" autocomplete="off"> <input type="hidden" id="sellRate" name="sellRate" value="" autocomplete="off">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="superrich-bg-green font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                                <td colspan="3"><span class="superrich-color-white"> <span ng-bind="'HOME.HOW_MUCH' | translate" class="ng-binding">How much would you like</span> </span></td>
+                            </tr>
+                            <tr class="superrich-bg-green">
+                                <td colspan="3" class="row-td-last">
+                                    <div class="col-xs-6 no-padding-left-right">
+                                        <div class="input-group"><input type="text" class="form-control input_number_only" aria-label="input" id="inputCurrent" ng-focus="gaTackEvent('Homepage','Fill','How_much_would_you_like_fill')" name="convertTH" value="0"> <span class="input-group-addon" id="convert-currency1">THB</span></div>
+                                    </div>
+                                    <span class="col-xs-1 no-padding-right superrich-color-white text-super-normal has-center">=</span>
+                                    <span class="col-xs-5 no-padding-left-right superrich-color-white text-super-normal has-center"> <span id="resultCurrent">0</span> <span id="convert-currency2"></span> </span>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="div-download-app">
+                <div class="container">
+                    <div id="div-download">
+                        <div class="row">
+                            <div class="col-xs-12 text"><span ng-bind="'HOME.DOWNLOAD_APP' | translate" class="ng-binding">DOWNLOAD APPLICATION ON MOBILE</span></div>
+                        </div>
+                        <div class="row">
+                            <a href="https://play.google.com/store/apps/details?id=superrich.superrichth" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Android_app_download_button')">
+                                <div class="col-xs-6 image">
+                                    <img alt="" src="assets/images/Badge-Black-05.png" class="img-button" height="35">
+                                </div>
+                            </a>
+                            <a href="https://itunes.apple.com/th/app/superrichth/id812291664?ls=1&amp;mt=8" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Ios_app_download_button')">
+                                <div class="col-xs-6 image right">
+                                    <img alt="" src="assets/images/Badge-Black-06.png" class="img-button" height="35">
+                                </div>
+                            </a>
+                        </div>
+<!--                        <div class="row margin-top10">-->
+<!--                            <a href=" https://appgallery.huawei.com/#/app/C8338843" target="_blank" rel="noopener"-->
+<!--                               ng-click="gaTackEvent('Homepage','Click','Huawei_app_download_button')">-->
+<!--                                <div class="col-xs-12 text-center">-->
+<!--                                    <img alt="" src="assets/images/Badge-Black-04.png"-->
+<!--                                         class="img-button" height="35">-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="promotion-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 div-promotion-image left"><a href="#!/en/promotion#item-1228">
+                    <img alt="" class=" promotion-image" ng-src="https://www.superrichthailand.com:443/uploads/images/f1b5d4ec5c01004d759e0a3bb8e3011c1754014384744.jpeg" src="https://www.superrichthailand.com:443/uploads/images/f1b5d4ec5c01004d759e0a3bb8e3011c1754014384744.jpeg"> </a></div>
+                <div class="col-xs-12 col-md-6 div-promotion-image right"><a href="#!/en/promotion#news-1224"> <img class=" promotion-image" ng-src="https://www.superrichthailand.com:443/uploads/images/f8bc0949d3df0f41250ea65829faa7e01749466839796.jpeg" src="https://www.superrichthailand.com:443/uploads/images/f8bc0949d3df0f41250ea65829faa7e01749466839796.jpeg"> </a></div>
+            </div>
+            <div class="row explore-content no-margin">
+                <div id="myCarousel3" class="carousel slide" data-ride="carousel" style="padding-bottom: 80px">
+                    <ol class="carousel-indicators">
+                        <!-- ngRepeat: currencyItem in currency --><li data-target="#myCarousel3" data-slide-to="0" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency" style="margin-left: 5px;" class="ng-scope active"></li><!-- end ngRepeat: currencyItem in currency --><li data-target="#myCarousel3" data-slide-to="1" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency" style="margin-left: 5px;" class="ng-scope"></li><!-- end ngRepeat: currencyItem in currency --><li data-target="#myCarousel3" data-slide-to="2" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency" style="margin-left: 5px;" class="ng-scope"></li><!-- end ngRepeat: currencyItem in currency --><li data-target="#myCarousel3" data-slide-to="3" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency" style="margin-left: 5px;" class="ng-scope"></li><!-- end ngRepeat: currencyItem in currency --><li data-target="#myCarousel3" data-slide-to="4" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency" style="margin-left: 5px;" class="ng-scope"></li><!-- end ngRepeat: currencyItem in currency --><li data-target="#myCarousel3" data-slide-to="5" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency" style="margin-left: 5px;" class="ng-scope"></li><!-- end ngRepeat: currencyItem in currency -->
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <!-- ngRepeat: currencyItem in currency --><div class="item ng-scope active" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency">
+                            <div class="col-xs-12 col-md-5 col-lg-4 superrich-color-green text-small-big superrich-bg-light-gray div-explore-image" style="padding-right: 5px;">
+                                <div class="col-xs-4 explore-image " style="padding-left: 0px;"><img ng-src="https://www.superrichthailand.com/uploads/images/1441ec8848149f304ba7b2827572f0351483543340467.png" style="vertical-align: top; max-width: 100px;" src="https://www.superrichthailand.com/uploads/images/1441ec8848149f304ba7b2827572f0351483543340467.png"></div>
+                                <!-- ngIf: currencyItem.shortName_en !='THB' --><div class="col-xs-8 explore-detail ng-scope" style="padding-left: 10px; padding-right: 0px" ng-if="currencyItem.shortName_en !='THB'">
+                                    <div>For</div>
+                                    <div class="text-bold text-big"><span ng-bind="currencyItem.sellRate" class="ng-binding">32.27</span> THB
+                                    </div>
+                                    <div>You will get <span class="text-bold"> 1 <span ng-bind="currencyItem.shortName_en" class="ng-binding">USD</span></span></div>
+                                    <div>From us</div>
+                                    <a href="#!/en/currency#USD" ng-click="gaTackEvent('Homepage','Click','Explore_'+currencyItem.shortName_en+'_button ')">
+                                        <div class="btn-web superrich-bg-super-light-green superrich-color-white btn-explore">
+                                            EXPLORE <span ng-bind="currencyItem.shortName_en" class="ng-binding">USD</span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+                                    </a></div><!-- end ngIf: currencyItem.shortName_en !='THB' -->
+                                <!-- ngIf: currencyItem.shortName_en=='THB' -->
+                            </div>
+                            <div class="col-xs-12 col-md-7 col-lg-8 no-padding"><img alt="USD - US Dollars Currency | สกุลเงิน ดอลลาร์ สหรัฐ | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/0c693ce278fc3325b655a7e40a9c2f5b1506495975941.jpeg" class="img-responsive banner-image" src="https://www.superrichthailand.com:443/uploads/images/0c693ce278fc3325b655a7e40a9c2f5b1506495975941.jpeg">
+                                <div class="banner-description"><span ng-bind="currencyItem['bannerTitle_'+lang]" class="ng-binding">United States</span>&nbsp;<span ng-bind="currencyItem['bannerDescription_'+lang]" class="ng-binding">The unmissable land of freedom, diversity, and technology you have to pin!</span></div>
+                            </div>
+                        </div><!-- end ngRepeat: currencyItem in currency --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency">
+                            <div class="col-xs-12 col-md-5 col-lg-4 superrich-color-green text-small-big superrich-bg-light-gray div-explore-image" style="padding-right: 5px;">
+                                <div class="col-xs-4 explore-image " style="padding-left: 0px;"><img ng-src="https://www.superrichthailand.com/uploads/images/fb08c10ebaf79615cd519ad9fbe5d3231483543601163.png" style="vertical-align: top; max-width: 100px;" src="https://www.superrichthailand.com/uploads/images/fb08c10ebaf79615cd519ad9fbe5d3231483543601163.png"></div>
+                                <!-- ngIf: currencyItem.shortName_en !='THB' --><div class="col-xs-8 explore-detail ng-scope" style="padding-left: 10px; padding-right: 0px" ng-if="currencyItem.shortName_en !='THB'">
+                                    <div>For</div>
+                                    <div class="text-bold text-big"><span ng-bind="currencyItem.sellRate" class="ng-binding">43.65</span> THB
+                                    </div>
+                                    <div>You will get <span class="text-bold"> 1 <span ng-bind="currencyItem.shortName_en" class="ng-binding">GBP</span></span></div>
+                                    <div>From us</div>
+                                    <a href="#!/en/currency#GBP" ng-click="gaTackEvent('Homepage','Click','Explore_'+currencyItem.shortName_en+'_button ')">
+                                        <div class="btn-web superrich-bg-super-light-green superrich-color-white btn-explore">
+                                            EXPLORE <span ng-bind="currencyItem.shortName_en" class="ng-binding">GBP</span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+                                    </a></div><!-- end ngIf: currencyItem.shortName_en !='THB' -->
+                                <!-- ngIf: currencyItem.shortName_en=='THB' -->
+                            </div>
+                            <div class="col-xs-12 col-md-7 col-lg-8 no-padding"><img alt="GBP - British Pounds Currency | สกุลเงิน ปอนด์ อังกฤษ | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/fe4f53bd810b8f49b7ad5ebc64d41c5e1506496069819.jpeg" class="img-responsive banner-image" src="https://www.superrichthailand.com:443/uploads/images/fe4f53bd810b8f49b7ad5ebc64d41c5e1506496069819.jpeg">
+                                <div class="banner-description"><span ng-bind="currencyItem['bannerTitle_'+lang]" class="ng-binding">United Kingdom,</span>&nbsp;<span ng-bind="currencyItem['bannerDescription_'+lang]" class="ng-binding">The co-cultural combined country. Melted all the history and arts of diverse races and cultures which blend in the modern way of technology beautifully.</span></div>
+                            </div>
+                        </div><!-- end ngRepeat: currencyItem in currency --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency">
+                            <div class="col-xs-12 col-md-5 col-lg-4 superrich-color-green text-small-big superrich-bg-light-gray div-explore-image" style="padding-right: 5px;">
+                                <div class="col-xs-4 explore-image " style="padding-left: 0px;"><img ng-src="https://www.superrichthailand.com/uploads/images/34ea6f19405036c50b49fb2d180205741483543670600.png" style="vertical-align: top; max-width: 100px;" src="https://www.superrichthailand.com/uploads/images/34ea6f19405036c50b49fb2d180205741483543670600.png"></div>
+                                <!-- ngIf: currencyItem.shortName_en !='THB' --><div class="col-xs-8 explore-detail ng-scope" style="padding-left: 10px; padding-right: 0px" ng-if="currencyItem.shortName_en !='THB'">
+                                    <div>For</div>
+                                    <div class="text-bold text-big"><span ng-bind="currencyItem.sellRate" class="ng-binding">37.85</span> THB
+                                    </div>
+                                    <div>You will get <span class="text-bold"> 1 <span ng-bind="currencyItem.shortName_en" class="ng-binding">EUR</span></span></div>
+                                    <div>From us</div>
+                                    <a href="#!/en/currency#EUR" ng-click="gaTackEvent('Homepage','Click','Explore_'+currencyItem.shortName_en+'_button ')">
+                                        <div class="btn-web superrich-bg-super-light-green superrich-color-white btn-explore">
+                                            EXPLORE <span ng-bind="currencyItem.shortName_en" class="ng-binding">EUR</span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+                                    </a></div><!-- end ngIf: currencyItem.shortName_en !='THB' -->
+                                <!-- ngIf: currencyItem.shortName_en=='THB' -->
+                            </div>
+                            <div class="col-xs-12 col-md-7 col-lg-8 no-padding"><img alt="EUR - Euros Currency | สกุลเงิน ยูโร | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/903e32cb795d46c6d9fa465f93e9c51f1506496285284.jpeg" class="img-responsive banner-image" src="https://www.superrichthailand.com:443/uploads/images/903e32cb795d46c6d9fa465f93e9c51f1506496285284.jpeg">
+                                <div class="banner-description"><span ng-bind="currencyItem['bannerTitle_'+lang]" class="ng-binding">Europe</span>&nbsp;<span ng-bind="currencyItem['bannerDescription_'+lang]" class="ng-binding">The classic and modern destination which is interesting both culture and geography landscape view. Lots of places to visit and experience as you desire.</span></div>
+                            </div>
+                        </div><!-- end ngRepeat: currencyItem in currency --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency">
+                            <div class="col-xs-12 col-md-5 col-lg-4 superrich-color-green text-small-big superrich-bg-light-gray div-explore-image" style="padding-right: 5px;">
+                                <div class="col-xs-4 explore-image " style="padding-left: 0px;"><img ng-src="https://www.superrichthailand.com/uploads/images/0c992673e4dc7542c79af89a2b735c961483543837931.png" style="vertical-align: top; max-width: 100px;" src="https://www.superrichthailand.com/uploads/images/0c992673e4dc7542c79af89a2b735c961483543837931.png"></div>
+                                <!-- ngIf: currencyItem.shortName_en !='THB' --><div class="col-xs-8 explore-detail ng-scope" style="padding-left: 10px; padding-right: 0px" ng-if="currencyItem.shortName_en !='THB'">
+                                    <div>For</div>
+                                    <div class="text-bold text-big"><span ng-bind="currencyItem.sellRate" class="ng-binding">0.22</span> THB
+                                    </div>
+                                    <div>You will get <span class="text-bold"> 1 <span ng-bind="currencyItem.shortName_en" class="ng-binding">JPY</span></span></div>
+                                    <div>From us</div>
+                                    <a href="#!/en/currency#JPY" ng-click="gaTackEvent('Homepage','Click','Explore_'+currencyItem.shortName_en+'_button ')">
+                                        <div class="btn-web superrich-bg-super-light-green superrich-color-white btn-explore">
+                                            EXPLORE <span ng-bind="currencyItem.shortName_en" class="ng-binding">JPY</span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+                                    </a></div><!-- end ngIf: currencyItem.shortName_en !='THB' -->
+                                <!-- ngIf: currencyItem.shortName_en=='THB' -->
+                            </div>
+                            <div class="col-xs-12 col-md-7 col-lg-8 no-padding"><img alt="JPY - Japanese Yen Currency | สกุลเงิน เยน ญี่ปุ่น | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/4f856dd4499182b013f8ebeee17d8c9e1506496511422.jpeg" class="img-responsive banner-image" src="https://www.superrichthailand.com:443/uploads/images/4f856dd4499182b013f8ebeee17d8c9e1506496511422.jpeg">
+                                <div class="banner-description"><span ng-bind="currencyItem['bannerTitle_'+lang]" class="ng-binding">Japan</span>&nbsp;<span ng-bind="currencyItem['bannerDescription_'+lang]" class="ng-binding">The unique country which blends in the most modern technology and originality of Japanese culture.</span></div>
+                            </div>
+                        </div><!-- end ngRepeat: currencyItem in currency --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency">
+                            <div class="col-xs-12 col-md-5 col-lg-4 superrich-color-green text-small-big superrich-bg-light-gray div-explore-image" style="padding-right: 5px;">
+                                <div class="col-xs-4 explore-image " style="padding-left: 0px;"><img ng-src="https://www.superrichthailand.com/uploads/images/2d0c429739a91070766365e875877bb21483543752099.png" style="vertical-align: top; max-width: 100px;" src="https://www.superrichthailand.com/uploads/images/2d0c429739a91070766365e875877bb21483543752099.png"></div>
+                                <!-- ngIf: currencyItem.shortName_en !='THB' --><div class="col-xs-8 explore-detail ng-scope" style="padding-left: 10px; padding-right: 0px" ng-if="currencyItem.shortName_en !='THB'">
+                                    <div>For</div>
+                                    <div class="text-bold text-big"><span ng-bind="currencyItem.sellRate" class="ng-binding">4.55</span> THB
+                                    </div>
+                                    <div>You will get <span class="text-bold"> 1 <span ng-bind="currencyItem.shortName_en" class="ng-binding">CNY</span></span></div>
+                                    <div>From us</div>
+                                    <a href="#!/en/currency#CNY" ng-click="gaTackEvent('Homepage','Click','Explore_'+currencyItem.shortName_en+'_button ')">
+                                        <div class="btn-web superrich-bg-super-light-green superrich-color-white btn-explore">
+                                            EXPLORE <span ng-bind="currencyItem.shortName_en" class="ng-binding">CNY</span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+                                    </a></div><!-- end ngIf: currencyItem.shortName_en !='THB' -->
+                                <!-- ngIf: currencyItem.shortName_en=='THB' -->
+                            </div>
+                            <div class="col-xs-12 col-md-7 col-lg-8 no-padding"><img alt="CNY - Chinese Yuan Currency | สกุลเงิน หยวน จีน | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/8aa2b740c6730e9ed919b634dc47820e1506496952429.jpeg" class="img-responsive banner-image" src="https://www.superrichthailand.com:443/uploads/images/8aa2b740c6730e9ed919b634dc47820e1506496952429.jpeg">
+                                <div class="banner-description"><span ng-bind="currencyItem['bannerTitle_'+lang]" class="ng-binding">China</span>&nbsp;<span ng-bind="currencyItem['bannerDescription_'+lang]" class="ng-binding">The exotic extensive land. Touch the unique diverse cultures and antique historical places which bring your imagination to the top.</span></div>
+                            </div>
+                        </div><!-- end ngRepeat: currencyItem in currency --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="currencyItem in currency">
+                            <div class="col-xs-12 col-md-5 col-lg-4 superrich-color-green text-small-big superrich-bg-light-gray div-explore-image" style="padding-right: 5px;">
+                                <div class="col-xs-4 explore-image " style="padding-left: 0px;"><img ng-src="https://www.superrichthailand.com/uploads/images/1d1d2cc3ddd3d7fdb5b8757a9d01e5171483765275070.png" style="vertical-align: top; max-width: 100px;" src="https://www.superrichthailand.com/uploads/images/1d1d2cc3ddd3d7fdb5b8757a9d01e5171483765275070.png"></div>
+                                <!-- ngIf: currencyItem.shortName_en !='THB' -->
+                                <!-- ngIf: currencyItem.shortName_en=='THB' --><div class="col-xs-8 explore-detail ng-scope" style="padding-left: 10px; padding-right: 0px" ng-if="currencyItem.shortName_en=='THB'">
+                                    <div>For</div>
+                                    <div class="text-bold text-big"> 1 USD</div>
+                                    <div>You will get <span class="text-bold ng-binding" ng-bind="currencyItem.sellRate">32.27</span>
+                                        <span class="text-bold"> THB</span></div>
+                                    <div>From us</div>
+                                    <a href="#!/en/currency#THB">
+                                        <div class="btn-web superrich-bg-super-light-green superrich-color-white btn-explore">
+                                            EXPLORE <span ng-bind="currencyItem.shortName_en" class="ng-binding">THB</span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+                                    </a></div><!-- end ngIf: currencyItem.shortName_en=='THB' -->
+                            </div>
+                            <div class="col-xs-12 col-md-7 col-lg-8 no-padding"><img alt="THB - Thai Baht Currency | สกุลเงิน บาท ไทย | Super Rich Thailand | ซุปเปอร์ริช" ng-src="https://www.superrichthailand.com:443/uploads/images/8333969d53baf04ed61ff1a62eb86c531506497107218.jpeg" class="img-responsive banner-image" src="https://www.superrichthailand.com:443/uploads/images/8333969d53baf04ed61ff1a62eb86c531506497107218.jpeg">
+                                <div class="banner-description"><span ng-bind="currencyItem['bannerTitle_'+lang]" class="ng-binding">Thailand</span>&nbsp;<span ng-bind="currencyItem['bannerDescription_'+lang]" class="ng-binding">The country that perfectly combines with an acculturation, nature, and modernity. You can design your travel trip as your desire. You will impress and not forget when visiting Thailand.</span></div>
+                            </div>
+                        </div><!-- end ngRepeat: currencyItem in currency -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="testimonial-section site-web">
+        <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <!-- ngRepeat: testimonial in testimonials --><li data-target="#myCarousel2" data-slide-to="0" ng-class="$index==0 ? 'active' : ''" ng-repeat="testimonial in testimonials" style="margin-left: 5px;" class="ng-scope active"></li><!-- end ngRepeat: testimonial in testimonials --><li data-target="#myCarousel2" data-slide-to="1" ng-class="$index==0 ? 'active' : ''" ng-repeat="testimonial in testimonials" style="margin-left: 5px;" class="ng-scope"></li><!-- end ngRepeat: testimonial in testimonials --><li data-target="#myCarousel2" data-slide-to="2" ng-class="$index==0 ? 'active' : ''" ng-repeat="testimonial in testimonials" style="margin-left: 5px;" class="ng-scope"></li><!-- end ngRepeat: testimonial in testimonials -->
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <!-- ngRepeat: testimonial in testimonials --><div class="item ng-scope active" ng-class="$index==0 ? 'active' : ''" ng-repeat="testimonial in testimonials">
+                    <div class="row">
+                        <div class="col-xs-12 has-center"><img alt="" src="assets/images/testimonial_icon.png"></div>
+                    </div>
+                    <div class="row detail margin-top40">
+                        <div class="col-xs-12 col-md-4 col-md-offset-4 superrich-color-white has-center">
+                            <!-- ngRepeat: message in testimonial['message_'+lang] --><div ng-repeat="message in testimonial['message_'+lang]" ng-bind="message" class="ng-binding ng-scope">I left my passport by accident while I was exchanging money. Then a nice guy from this currency exchange center at the airport came all the way to the city center just to give me my passport back. I am so touched. And currency was also the best here compared to ones inside of fhe airport and even ones at city center. Thank you!</div><!-- end ngRepeat: message in testimonial['message_'+lang] -->
+                        </div>
+                    </div>
+                    <div class="row margin-top40">
+                        <div class="col-xs-12 superrich-color-white has-center text-super-normal text-bold"><span ng-bind="testimonial['name_'+lang]" class="ng-binding">Katherine J Juhee Kim-Koh</span></div>
+                        <div class="col-xs-12 superrich-color-white has-center text-super-normal text-bold"> Credit:
+                            <span ng-bind="testimonial.credit" class="ng-binding">Facebook.com/SuperrichTH</span></div>
+                    </div>
+                </div><!-- end ngRepeat: testimonial in testimonials --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="testimonial in testimonials">
+                    <div class="row">
+                        <div class="col-xs-12 has-center"><img alt="" src="assets/images/testimonial_icon.png"></div>
+                    </div>
+                    <div class="row detail margin-top40">
+                        <div class="col-xs-12 col-md-4 col-md-offset-4 superrich-color-white has-center">
+                            <!-- ngRepeat: message in testimonial['message_'+lang] --><div ng-repeat="message in testimonial['message_'+lang]" ng-bind="message" class="ng-binding ng-scope">ทางเลือกฉลาดๆ ของคนที่เลือกได้ บริการรวดเร็ว ขั้นตอนไม่ยุ่งยาก ชอบคะแลกเงินกับที่นี่มาหลายปี ยังไม่คิดเปลี่ยนใจคะ</div><!-- end ngRepeat: message in testimonial['message_'+lang] -->
+                        </div>
+                    </div>
+                    <div class="row margin-top40">
+                        <div class="col-xs-12 superrich-color-white has-center text-super-normal text-bold"><span ng-bind="testimonial['name_'+lang]" class="ng-binding">Jutaluck Nakawiroj</span></div>
+                        <div class="col-xs-12 superrich-color-white has-center text-super-normal text-bold"> Credit:
+                            <span ng-bind="testimonial.credit" class="ng-binding">Facebook.com/SuperrichTH</span></div>
+                    </div>
+                </div><!-- end ngRepeat: testimonial in testimonials --><div class="item ng-scope" ng-class="$index==0 ? 'active' : ''" ng-repeat="testimonial in testimonials">
+                    <div class="row">
+                        <div class="col-xs-12 has-center"><img alt="" src="assets/images/testimonial_icon.png"></div>
+                    </div>
+                    <div class="row detail margin-top40">
+                        <div class="col-xs-12 col-md-4 col-md-offset-4 superrich-color-white has-center">
+                            <!-- ngRepeat: message in testimonial['message_'+lang] --><div ng-repeat="message in testimonial['message_'+lang]" ng-bind="message" class="ng-binding ng-scope">Always the best rate in Bangkok. I do not bother to compare rates anymore, I just go straight to Super Rich Thailand (the green one). There is a nice app. on the App Store to use too, for your convenience.</div><!-- end ngRepeat: message in testimonial['message_'+lang] -->
+                        </div>
+                    </div>
+                    <div class="row margin-top40">
+                        <div class="col-xs-12 superrich-color-white has-center text-super-normal text-bold"><span ng-bind="testimonial['name_'+lang]" class="ng-binding">Bradley Ephraim</span></div>
+                        <div class="col-xs-12 superrich-color-white has-center text-super-normal text-bold"> Credit:
+                            <span ng-bind="testimonial.credit" class="ng-binding">Facebook.com/SuperrichTH</span></div>
+                    </div>
+                </div><!-- end ngRepeat: testimonial in testimonials -->
+            </div>
+            <a class="left carousel-control" href="" role="button" data-slide="prev" onclick="$('#myCarousel2').carousel('prev')"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+            </a> <a class="right carousel-control" href="" role="button" data-slide="next" onclick="$('#myCarousel2').carousel('next')"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span> </a></div>
+    </section>
+    <section class="contact-section">
+        <div class="container">
+            <div class="row div-location">
+                <div class="col-xs-12 col-md-4">
+                    <div class="text-small-big font-header" style="font-family: SuperRichGalSILR; font-size: 14px;"><span ng-bind="'HOME.LOCATION' | translate" class="ng-binding">LOCATION</span></div>
+                    <div class="div-select-location"><span class="plain-select"> <select class="inp superrich-bg-green" id="selectBranch" aria-label="input" name="selectBranch"><option value="RDR">Headquarter Rajdamri 1</option><option value="VRD">Vibhavadi 22</option><option value="THP">The Mall Thaphra 3rd floor (Opp. Tisco Bank)</option><option value="CR2">Central Rama 2 G floor (Opp. Cafe Amazon)</option><option value="GSC">Gaysorn Centre 2nd floor (Chitlom BTS Skywalk)</option><option value="PTN">The Platinum Fashion Mall 1st floor (Parking Lot Entrance)</option><option value="MBK">MBK Center 3rd floor (National Stadium BTS Skywalk)</option><option value="CTW">Central World 1st Floor, Eden Zone, near Pirom Specialty Bar</option><option value="CRI">Central Ramindra 3rd floor (Opp. Amazon)</option><option value="CLP">Central Ladprao, 2nd Floor, Banking Zone, near Aeon
+</option><option value="CWG">Central Westgate, 3rd Floor, Banking Zone, opposite TTB Bank
+</option><option value="CR3">Central Rama 3, 4th Floor, opposite Bangkok Bank</option><option value="PRP">Paradise Park, 2nd Floor, Banking Zone</option><option value="CWV">Central Westville, 1st Floor (Zone Semi Outdoor)</option><option value="MKC">Mahanakhon Cube G floor (Opp. Mahanakhon Eatery)</option><option value="BKP">The Mall Bangkapi 2nd Floor (Opp. Kasikorn Bank)</option><option value="FIL">Fashion Island B Floor (Opp. Krungsri Bank, Island Academy)</option><option value="TM3">Terminal 21 Rama 3 LG Floor nearby Tops Supermarket (Caribbean Village Zone)</option><option value="TMA">Terminal 21 Asok G Floor</option></select> </span>
+                    </div>
+                    <div class="div-image-location col-xs-12 col-md-3"><img alt="" src="https://www.superrichthailand.com:443/uploads/images/054c90bd37e6c1557a5c303453ad8a3f1491535297764.jpeg" class="img-responsive" ng-src="https://www.superrichthailand.com:443/uploads/images/054c90bd37e6c1557a5c303453ad8a3f1491535297764.jpeg"></div>
+                    <div id="location-name" class="div-description-location col-xs-12 col-md-9"><p class="text-bold ng-binding" ng-bind="branch['name_'+ lang]">Headquarter Rajdamri 1</p>
+                        <p ng-bind="branch['description_'+ lang]" class="ng-binding">Sell &amp; Buy 41 foreign currencies
+
+(USD, GBP, EUR, AUD, JPY, MYR, SGD, HKD, TWD, KRW, CNY, CAD, CHF, DKK, NOK, SEK, NZD, PHP, VND, IDR, INR, RUB, BHD, BND, JOD, KWD, LAK, MMK, MOP, NPR, OMR, PKR, SAR, SCOT, TRY, ZAR, AED, QAR,BDT,ILS,LKR)</p>
+                        <!-- ngIf: branch.isOpen==true --><p class="superrich-color-green ng-scope" ng-if="branch.isOpen==true"> Open <img src="assets/images/icon_open_branch.png" style="margin-top: -7px; max-height: 20px;">
+                        </p><!-- end ngIf: branch.isOpen==true -->
+                        <!-- ngIf: branch.isOpen==false --></div>
+                    <div class="div-description-location col-xs-12"><br>
+                        <p ng-bind="branch['address_'+lang]" class="ng-binding">45 Rajdamri 1 Rajdamri Rd. Lumpini Patumwan Bangkok 10330</p><br>
+                        <p class="text-bold">Operating Hours</p>
+                        <!-- ngIf: branch.operatingHours.weekdays !=null --><div ng-if="branch.operatingHours.weekdays !=null" ng-bind="branch.operatingHours.weekdays['day_'+lang]" class="ng-binding ng-scope">Monday - Friday</div><!-- end ngIf: branch.operatingHours.weekdays !=null -->
+                        <!-- ngIf: branch.operatingHours.weekdays !=null --><div ng-if="branch.operatingHours.weekdays !=null" ng-bind="branch.operatingHours.weekdays.time" class="ng-binding ng-scope">9:00 - 18:00</div><!-- end ngIf: branch.operatingHours.weekdays !=null -->
+                        <!-- ngIf: branch.operatingHours.holiday !=null --><div ng-if="branch.operatingHours.holiday !=null" ng-bind="branch.operatingHours.holiday['day_'+lang]" class="ng-binding ng-scope">Saturday &amp; Public Holidays</div><!-- end ngIf: branch.operatingHours.holiday !=null -->
+                        <!-- ngIf: branch.operatingHours.holiday !=null --><div ng-if="branch.operatingHours.holiday !=null" ng-bind="branch.operatingHours.holiday.time" class="ng-binding ng-scope">9:30 - 17:00</div><!-- end ngIf: branch.operatingHours.holiday !=null -->
+                        <!-- ngIf: branch.operatingHours['closed_'+lang] !=null --><div ng-if="branch.operatingHours['closed_'+lang] !=null" class="superrich-color-red ng-scope"><span ng-bind="branch.operatingHours['closed_'+lang]" class="ng-binding">Sunday Closed</span></div><!-- end ngIf: branch.operatingHours['closed_'+lang] !=null -->
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-7 col-md-offset-1 has-center">
+                    <div class="text-super-normal margin-top20 col-xs-12 col-md-6 div-text-map font-normal" style="font-family: SuperRichArial; font-size: 14px;"><a href="https://www.google.com/maps?cid=718901648721976383&amp;_ga=1.152633852.418373965.1482218721" class="href-style" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Google_map_button')"> <img src="assets/images/map_google_icon.png"> <span class="font-normal ng-binding" ng-bind="'HOME.GOOGLE_MAP' | translate" style="font-family: SuperRichArial; font-size: 14px;">GOOGLE MAP</span>
+                    </a></div>
+                    <div class="margin-top20 col-xs-12 col-md-6 div-button-map" ng-click="gaTackEvent('Homepage','Click','Download_map_button')"><a href="https://www.superrichthailand.com:443/uploads/images/90a1f24cf9dedfa3261b2b117e137a501669891258161.jpeg" target="_blank" rel="noopener">
+                        <div class="div-btn-download-map superrich-bg-yellow text-center img-button"><span class="font-normal ng-binding" ng-bind="'HOME.DOWNLOAD_MAP' | translate" style="font-family: SuperRichArial; font-size: 14px;">DOWNLOAD MAP</span></div>
+                    </a></div>
+                    <div class="margin-top20 col-xs-12"><img alt="" src="https://www.superrichthailand.com:443/uploads/images/90a1f24cf9dedfa3261b2b117e137a501669891258161.jpeg" class="map" ng-src="https://www.superrichthailand.com:443/uploads/images/90a1f24cf9dedfa3261b2b117e137a501669891258161.jpeg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- ngIf: flagCookiePopup --><div class="cookie-popup ng-scope" ng-if="flagCookiePopup">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 col-sm-1 col-lg-1 text-right div-img">
+                <img alt="" src="assets/images/security-icon-03.png">
+            </div>
+            <div class="col-xs-7 col-sm-9 col-lg-11 div-content">
+                <div class="div-text">
+                    <div class="text-bold superrich-color">
+                        <span ng-bind="'COOKIE_POPUP.TITLE' | translate" class="ng-binding">This website uses cookies.</span>
+                    </div>
+                    <div>
+                        <span ng-bind="'COOKIE_POPUP.DESC' | translate" class="ng-binding">We use cookies to provide you with a better experience. Click for more information about our use of cookies through the</span>
+                        <a href="#!/en/cookie-policy" du-smooth-scroll="" du-scrollspy="">
+                            <span ng-bind="'COOKIE_POPUP.COOKIE_POLICY' | translate" class="ng-binding">'Cookie Policy'</span>
+                        </a>
+                        <span ng-bind="'COOKIE_POPUP.AND' | translate" class="ng-binding">and</span>
+                        <a href="#!/en/privacy-policy" du-smooth-scroll="" du-scrollspy="">
+                            <span ng-bind="'COOKIE_POPUP.PRIVACY_POLICY' | translate" class="ng-binding">'Privacy Policy'.</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="div-btn">
+                    <button type="button" class="btn-cookie-ok btn superrich-bg-green superrich-color-white text-bold input-booking-group ng-binding" ng-click="acceptCookie()">
+                        <span ng-bind="'COOKIE_POPUP.BTN_OK' | translate" class="ng-binding">OK</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 div-btn">
+                <button type="button" class="btn-cookie-ok btn superrich-bg-green superrich-color-white text-bold input-booking-group ng-binding" ng-click="acceptCookie()">
+                    <span ng-bind="'COOKIE_POPUP.BTN_OK' | translate" class="ng-binding">OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div><!-- end ngIf: flagCookiePopup -->
+</div>
+<!-- ngInclude: 'footer/footer.html' --><div ng-include="'footer/footer.html'" class="ng-scope"><footer ng-controller="MenuBarCtrl" class="ng-scope">
+    <div class="container">
+        <div class="row div-contact">
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 no-padding contact-tel">
+                <span class="font-normal ng-binding" ng-bind="'FOOTER.CALL_CENTER' | translate" style="font-family: SuperRichArial; font-size: 14px;">CALL CENTER</span> <a href="tel:+6622544444"><span class="text-big text-bold superrich-color-black" style="margin-right: 5px;">+66 (0) 2254 4444</span></a>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9 no-padding social-image">
+                <span class="superrich-color-green font-normal" style="font-family: SuperRichArial; font-size: 14px;"><span ng-bind="'FOOTER.FOLLOW' | translate" class="ng-binding">FOLLOW SuperrichTH</span></span>
+                <a href="https://www.facebook.com/superrichth" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Bottom_facebook_button')"><img alt="" src="../assets/images/footer_fb_icon.png" class="img-button"></a>
+                <a href="https://twitter.com/superrichTH" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Bottom_twitter_button')"><img alt="" src="../assets/images/footer_twit_icon.png" class="img-button"></a>
+                <a href="https://www.instagram.com/superrichth/?hl=en" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Bottom_instagram_button')"><img alt="" src="../assets/images/footer_instra_icon.png" class="img-button"></a>
+                <a href="https://line.me/R/ti/p/%40vkh6221v" target="_blank" rel="noopener" ng-click="gaTackEvent('Homepage','Click','Bottom_line_button')"><img alt="" src="../assets/images/footer_line_icon.png" class="img-button"></a>
+            </div>
+        </div>
+
+        <div class="row div-up-to">
+            <div class="margin-top20 site-mobile col-xs-12 has-center">
+                <a href="#" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+                    <div class="up-to text-small-big text-bold superrich-color-white img-button">
+                                <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                        <div>UP TO</div>
+                        <p></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid div-footer">
+        <div class="container">
+            <div class="table-responsive site-web">
+                <table class="table" id="site-map-table">
+                    <tbody id="tbodyFooter">
+                    <tr class="font-header" style="font-family: SuperRichGalSILR; font-size: 14px;">
+                        <td><a href="#!/en/exchange" du-smooth-scroll="" du-scrollspy="" id="exchange" ng-bind="'MENU.EXCHANGE_RATE' | translate" class="ng-binding">EXCHANGE RATE</a></td>
+                        <td><a href="#!/en/currency#USD" du-smooth-scroll="" du-scrollspy="" id="currency" ng-bind="'MENU.CURRENCY' | translate" class="ng-binding">CURRENCY</a></td>
+                        <td><a href="#!/en/promotion" du-smooth-scroll="" du-scrollspy="" id="promotion" ng-bind="'MENU.PROMOTION&amp;NEWS' | translate" class="ng-binding">NEWS &amp; PROMOTION</a></td>
+                        <td><a href="#!/en/contact" du-smooth-scroll="" du-scrollspy="" id="contact" ng-bind="'MENU.CONTACT' | translate" class="ng-binding">CONTACT</a></td>
+                        <td><a href="#!/en/about" du-smooth-scroll="" du-scrollspy="" id="about" ng-bind="'MENU.ABOUT_US' | translate" class="ng-binding">ABOUT US</a></td>
+                        <td></td>
+                        <!--<td><a href="#!/member" du-smooth-scroll du-scrollspy id="member" ng-bind="'MENU.MEMBER' | translate"></a></td>-->
+                    </tr>
+                    <tr class="font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                        <td><a href="#!/en/exchange#converter-section" du-smooth-scroll="" du-scrollspy="" id="exchange-converter-section"><span ng-bind="'MENU.EXCHANGE_RATE_CONVERTER' | translate" class="ng-binding">Converter</span></a></td>
+                        <td><a href="#!/en/currency#USD" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section"><span ng-bind="'MENU.CURRENCY_USD' | translate" class="ng-binding">US Dollars</span></a></td>
+                        <td><a href="#!/en/promotion#promotion-list" du-smooth-scroll="" du-scrollspy="" id="promotion-promotion-section"><span ng-bind="'MENU.PROMOTION&amp;NEWS_PROMOTION' | translate" class="ng-binding">Promotions</span></a></td>
+                        <td><a href="#!/en/contact#branch" du-smooth-scroll="" du-scrollspy="" id="contact-contact-section"><span ng-bind="'MENU.CONTACT_LOCATION' | translate" class="ng-binding">Locations</span></a></td>
+                        <td><a href="#!/en/about#company-profile" du-smooth-scroll="" du-scrollspy="" id="about-about-section"><span ng-bind="'MENU.ABOUT_US_COM_PROFILE' | translate" class="ng-binding">Company Profile</span></a></td>
+                        <!--<td><a href="#!/member#profile-content" du-smooth-scroll du-scrollspy id="member-member-section"><span ng-bind="'MENU.MEMBER_PROFILE' | translate"></span></a></td>-->
+                        <td></td>
+                    </tr>
+                    <tr class="font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                        <td><a href="#!/en/exchange#rate-section" du-smooth-scroll="" du-scrollspy="" id="exchange-rate-section"><span ng-bind="'MENU.EXCHANGE_RATE_RATE' | translate" class="ng-binding">Exchange Rates</span></a></td>
+                        <td><a href="#!/en/currency#GBP" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section2"><span ng-bind="'MENU.CURRENCY_GBP' | translate" class="ng-binding">British Pounds</span></a></td>
+                        <td><a href="#!/en/promotion#news-section" du-smooth-scroll="" du-scrollspy="" id="promotion-news-section"><span ng-bind="'MENU.PROMOTION&amp;NEWS_NEWS' | translate" class="ng-binding">News</span></a></td>
+                        <td><a href="#!/en/contact#faq" du-smooth-scroll="" du-scrollspy="" id="contact-faq-section1"><span ng-bind="'MENU.CONTACT_FAQ' | translate" class="ng-binding">FAQ</span></a></td>
+                        <td><a href="#!/en/about#join-us-section" du-smooth-scroll="" du-scrollspy="" id="about-join-us-section"><span ng-bind="'MENU.ABOUT_US_JOIN_US' | translate" class="ng-binding">Join Us</span></a></td>
+                        <!--<td></td>-->
+                        <!--<td><a href="#!/member#reward-section" du-smooth-scroll du-scrollspy id="member-reward-section-foot"><span ng-bind="'MENU.MEMBER_POINT' | translate"></span></a></td>-->
+                        <td></td>
+                    </tr>
+                    <tr class="font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                        <td><a href="#!/en/exchange#chart-section" du-smooth-scroll="" du-scrollspy="" id="exchange-chart-section"><span ng-bind="'MENU.EXCHANGE_RATE_HISTORY' | translate" class="ng-binding">Historical Rates</span></a></td>
+                        <td><a href="#!/en/currency#EUR" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section3"><span ng-bind="'MENU.CURRENCY_EUR' | translate" class="ng-binding">Euros</span></a></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="#!/en/privacy-policy" du-smooth-scroll="" du-scrollspy="" id="privacy-policy"><span ng-bind="'MENU.ABOUT_US_PRIVACY_POLICY' | translate" class="ng-binding">Privacy Policy</span></a></td>
+                        <td></td>
+                    </tr>
+                    <tr class="font-normal" style="font-family: SuperRichArial; font-size: 14px;">
+                        <td></td>
+                        <td><a href="#!/en/currency#JPY" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section4"><span ng-bind="'MENU.CURRENCY_JPY' | translate" class="ng-binding">Japanese Yen</span></a></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="#!/en/srgr-privacy-policy" du-smooth-scroll="" du-scrollspy="" id="srgr-privacy-policy"><span ng-bind="'MENU.ABOUT_US_SRGR_PRIVACY_POLICY' | translate" class="ng-binding">Superrich Green Group</span></a></td>
+                        <td></td>
+                    </tr>
+
+                    <!--<div id="currencyFoot"></div>-->
+                    <!--<tr class="font-normal" ng-repeat="currencyItem in currency.slice(3,currency.length)">-->
+                        <!--<td></td>-->
+                        <!--<td><a href="#!/currency#{{currencyItem['shortName_'+lang]}}" du-smooth-scroll du-scrollspy id="currency-travel-section4"><span ng-bind="currencyItem['fullName_'+lang]"></span></a></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr class="font-normal">-->
+                        <!--<td></td>-->
+                        <!--<td><a href="#!/currency#JPY" du-smooth-scroll du-scrollspy id="currency-travel-section4"><span ng-bind="'MENU.CURRENCY_JPY' | translate"></span></a></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr class="font-normal">-->
+                        <!--<td></td>-->
+                        <!--<td><a href="#!/currency#CNY" du-smooth-scroll du-scrollspy id="currency-travel-section5"><span ng-bind="'MENU.CURRENCY_CNY' | translate"></span></a></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr class="font-normal">-->
+                        <!--<td></td>-->
+                        <!--<td><a href="#!/currency#bank-note" du-smooth-scroll du-scrollspy id="currency-bank-note-section"><span ng-bind="'MENU.CURRENCY_BANK_NOTE' | translate"></span></a></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <tr class="font-normal cuurency-footer" style="font-family: SuperRichArial; font-size: 14px;"><td></td> <td><a href="#!/en/currency#CNY" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section4"><span>Chinese Yuan</span></a></td> <td></td> <td></td><td></td> <td></td> </tr><tr class="font-normal cuurency-footer" style="font-family: SuperRichArial; font-size: 14px;"><td></td> <td><a href="#!/en/currency#THB" du-smooth-scroll="" du-scrollspy="" id="currency-travel-section4"><span>Thai Baht</span></a></td> <td></td> <td></td><td></td> <td></td> </tr><tr class="font-normal cuurency-footer" style="font-family: SuperRichArial; font-size: 14px;"> <td></td> <td><a href="#!/en/currency#bank-note" du-smooth-scroll="" du-scrollspy="" id="currency-bank-note-section"><span>Banknotes</span></a></td> <td></td> <td></td> <td></td><td></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 license margin-top20">
+                    Thailand Best Rate | The Best Currency Exchange © 2015 Super Rich (Thailand) Co., Ltd. - All Rights
+                    Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="modal fade text_normal color_navy_blue_ais ng-scope" tabindex="-1" role="dialog" id="alert_dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close color_navy_blue_ais" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-title color_navy_blue_ais text-bold">Modal title</div>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <div class="btn btn-default color_navy_blue_ais text_small" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script class="ng-scope">
+    $(document).ready(function () {
+        $('table#site-map-table > tbody > tr > td > a').click(function () {
+            $('.navbar-nav > li.dropdown > a').removeClass('active');
+            var id = '';
+            if (this.id.indexOf("-") > -1){
+                id = this.id.substring(0, this.id.indexOf("-"));
+            }else{
+                id = this.id;
+            }
+
+//            console.log(id);
+
+            $('#'+id).addClass('active');
+        });
+    });
+</script>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.5.2/angular-local-storage.min.js"></script>
+<script src="bower_components/angularPrint/angularPrint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-scroll/1.0.2/angular-scroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.1/angular-translate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.1/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+<script src="https://code.angularjs.org/1.6.2/angular-cookies.min.js"></script>
+
+<script src="app.min.js"></script>
+<script src="home/home.js"></script>
+<script src="rate/rate.js"></script>
+<script src="promotion/promotion.js"></script>
+<script src="contact/contact.js"></script>
+<script src="about_us/about_us.js"></script>
+<script src="menu_bar.js"></script>
+<script src="currency/currency.js"></script>
+<script src="widget/widget.js"></script>
+<script src="rate-kiosk/rate-kiosk.js"></script>
+<script src="privacy-policy/privacy-policy.js"></script>
+<script src="srgr-privacy-policy/srgr-privacy-policy.js"></script>
+<script src="cookie-policy/cookie-policy.js"></script>
+<script async="" src="assets/js/script.js"></script>
+
+<script>
+//    $('img').attr('alt','superrich thailand');
+    function hoverMenu(){$("ul.nav li.dropdown").hover(function(){$(this).addClass("open")},function(){$(this).removeClass("open")})}$(window).width()>=1200&&hoverMenu(),$(window).resize(function(){$(this).width()>=1200&&hoverMenu()}),$(document).ready(function(){var i=window.location.href.substr(window.location.href.indexOf("!/")+2,window.location.href.length);i.indexOf("#")>-1&&(i=i.substr(0,i.indexOf("#"))),i.indexOf("/")>-1&&(i=i.substr(0,i.indexOf("/"))),"home"!=i&&""!=i&&$("#"+i).addClass("active"),$("ul.nav > li > a").click(function(){if($(window).width()<992){if($(this).hasClass("dropdown-toggle"))return!1;$(".navbar-toggle").click()}}),$("ul.nav > li.dropdown > a").click(function(){$(".navbar-nav > li.dropdown > a").removeClass("active"),$(this).addClass("active"),$(window).width()<992?"currency"==this.id?$(this).parent().hasClass("open")?$("ul.nav > li.dropdown").removeClass("open"):($("ul.nav > li.dropdown").removeClass("open"),$(this).parent().addClass("open")):(window.location.href=this.href,$(".navbar-toggle").click()):window.location.href=this.href}),$(".dropdown-menu li a").click(function(){$(window).width()<992&&$(".navbar-toggle").click()}),$("ul.nav > li.dropdown > ul > li > a").click(function(){$(".navbar-nav > li.dropdown > a").removeClass("active");var i=this.id.substring(0,this.id.indexOf("-"));$("#"+i).addClass("active")}),$("#logo").click(function(){$(".navbar-nav > li.dropdown > a").removeClass("active")}),$("#member-login").click(function(){$("#div-login").toggle("slow")}),$("#login-header-form").validate({highlight:function(i){$(i).closest(".form-group").addClass("has-error")},unhighlight:function(i){$(i).closest(".form-group").removeClass("has-error")},errorElement:"span",errorClass:"help-block",errorPlacement:function(i,n){n.parent(".input-group").length?i.insertAfter(n.parent()):i.insertAfter(n)}}),$("table#site-map-table > tbody > tr > td > a").click(function(){$(".navbar-nav > li.dropdown > a").removeClass("active");var i="";i=this.id.indexOf("-")>-1?this.id.substring(0,this.id.indexOf("-")):this.id,$("#"+i).addClass("active")})});
+</script>
+
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div></body></html>
