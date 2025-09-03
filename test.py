@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
 
 
-from playwright.sync_api import sync_playwright
+
 
 def extract_exchange_rates():
     with sync_playwright() as p:
